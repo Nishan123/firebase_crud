@@ -5,12 +5,15 @@ class EmpCard extends StatelessWidget {
   final String name;
   final String age;
   final String address;
+  final VoidCallback onPressedEdit;
 
-  const EmpCard(
-      {super.key,
-      required this.name,
-      required this.age,
-      required this.address});
+  const EmpCard({
+    super.key,
+    required this.name,
+    required this.age,
+    required this.address,
+    required this.onPressedEdit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class EmpCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         color: Colors.red,
       ),
-      height: MediaQuery.of(context).size.height * 0.15,
+      height: MediaQuery.of(context).size.height * 0.14,
       width: double.infinity,
       child: Padding(
           padding: const EdgeInsets.only(left: 8),
@@ -65,16 +68,16 @@ class EmpCard extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                  onPressed: () {},
+                  onPressed: onPressedEdit,
                   icon: const Icon(
                     Icons.edit,
-                    color: Color.fromARGB(255, 1, 138, 249),
+                    color: Colors.white,
                   )),
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
                   Icons.delete,
-                  color: Color.fromARGB(255, 1, 138, 249),
+                  color: Colors.white,
                 ),
               ),
             ],

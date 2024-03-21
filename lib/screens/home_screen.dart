@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crud/screens/add_emp_screen.dart';
 import 'package:firebase_crud/services/database.dart';
+import 'package:firebase_crud/widgets.dart/edit_details.dart';
 import 'package:firebase_crud/widgets.dart/emp_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -38,7 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     return EmpCard(
                         name: ds["Name"],
                         age: ds["Age"],
-                        address: ds["Address"]);
+                        address: ds["Address"],
+                        onPressedEdit: () {
+                          EditEmployeeDetails(ds["Id"]);
+                        });
                   })
               : Container();
         });
@@ -69,4 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  Future EditEmployeeDetails(String id) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(content: EditDetails()));
 }
