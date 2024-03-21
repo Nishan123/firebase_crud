@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatelessWidget {
   final IconData suffixIcon;
   final String hintText;
+  final TextEditingController controller;
   const CustomTextField({
     super.key,
     required this.suffixIcon,
     required this.hintText,
+    required this.controller
   });
 
   @override
@@ -15,7 +17,6 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: TextField(
         decoration: InputDecoration(
-          
             hintText: hintText,
             hintStyle: const TextStyle(color: Colors.white),
             filled: true,
@@ -27,7 +28,8 @@ class CustomTextField extends StatelessWidget {
               suffixIcon,
               color: Colors.white,
             )),
-            style: const TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
+        controller: controller,
       ),
     );
   }
