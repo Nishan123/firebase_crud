@@ -1,4 +1,5 @@
 import 'package:firebase_crud/screens/add_emp_screen.dart';
+import 'package:firebase_crud/widgets.dart/emp_card.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -21,6 +22,11 @@ class HomeScreen extends StatelessWidget {
               context, MaterialPageRoute(builder: (_) => AddEmpScreen()));
         },
         child: const Icon(Icons.person_add),
+      ),
+      body: Column(
+        children: [
+          EmpCard(name: 'Nishan', address: 'Itahari', age: '20',)
+        ],
       ),
     );
   }
