@@ -1,9 +1,48 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_crud/screens/add_emp_screen.dart';
+import 'package:firebase_crud/services/database.dart';
 import 'package:firebase_crud/widgets.dart/emp_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Stream? EmployeeStream;
+
+  getontheload() async {
+    EmployeeStream = await DatabaseMethods().getEmployeeDetails();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getontheload();
+    super.initState();
+  }
+
+  Widget allEmployeeDetails() {
+    return StreamBuilder(
+        stream: EmployeeStream,
+        builder: (context, AsyncSnapshot snapshot) {
+          return snapshot.hasData
+              ? ListView.builder(
+                  itemCount: snapshot.data.docs.length,
+                  itemBuilder: (context, index) {
+                    DocumentSnapshot ds = snapshot.data.docs[index];
+                    return EmpCard(
+                        name: ds["Name"],
+                        age: ds["Age"],
+                        address: ds["Address"]);
+                  })
+              : Container();
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +64,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          EmpCard(name: 'Nishan', address: 'Itahari', age: '20',)
+          Expanded(child: allEmployeeDetails()),
         ],
       ),
     );

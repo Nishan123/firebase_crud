@@ -10,7 +10,6 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     required this.controller
   });
-
   @override
   Widget build(BuildContext context) {
     return Padding(
