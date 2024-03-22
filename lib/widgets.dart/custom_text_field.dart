@@ -4,12 +4,11 @@ class CustomTextField extends StatelessWidget {
   final IconData suffixIcon;
   final String hintText;
   final TextEditingController controller;
-  const CustomTextField({
-    super.key,
-    required this.suffixIcon,
-    required this.hintText,
-    required this.controller
-  });
+  const CustomTextField(
+      {super.key,
+      required this.suffixIcon,
+      required this.hintText,
+      required this.controller});
   @override
   Widget build(BuildContext context) {
     return Padding(

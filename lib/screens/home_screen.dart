@@ -15,6 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final nameController = TextEditingController();
+
+  final ageController = TextEditingController();
+
+  final addressController = TextEditingController();
   Stream? EmployeeStream;
 
   getontheload() async {
@@ -42,6 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         age: ds["Age"],
                         address: ds["Address"],
                         onPressedEdit: () {
+                          nameController.text = ds["Name"];
+                          ageController.text = ds["Age"];
+                          addressController.text = ds["Address"];
+
                           EditEmployeeDetails(ds["Id"]);
                         });
                   })
@@ -77,5 +86,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future EditEmployeeDetails(String id) => showDialog(
       context: context,
-      builder: (context) => AlertDialog(content: EditDetails()));
+      builder: (context) => AlertDialog(
+              content: EditDetails(
+            nameController: nameController,
+            ageController: ageController,
+            addressController: addressController, Id: id,
+          )));
 }
