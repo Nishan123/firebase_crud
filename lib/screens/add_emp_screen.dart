@@ -53,6 +53,9 @@ class _AddEmpScreenState extends State<AddEmpScreen> {
             const SizedBox(
               height: 100,
             ),
+
+
+            // Add Employee button
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
               height: 50,
@@ -74,9 +77,9 @@ class _AddEmpScreenState extends State<AddEmpScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red),
-                  elevation: MaterialStateProperty.all(0),
-                  shape: MaterialStateProperty.all(const RoundedRectangleBorder(
+                  backgroundColor: WidgetStateProperty.all(Colors.red),
+                  elevation: WidgetStateProperty.all(0),
+                  shape: WidgetStateProperty.all(const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero)), // Add this line
                 ),
                 child: const Text(

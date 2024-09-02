@@ -6,14 +6,15 @@ class EmpCard extends StatelessWidget {
   final String age;
   final String address;
   final VoidCallback onPressedEdit;
+  final VoidCallback onPressedDelete;
 
-  const EmpCard({
-    super.key,
-    required this.name,
-    required this.age,
-    required this.address,
-    required this.onPressedEdit,
-  });
+  const EmpCard(
+      {super.key,
+      required this.name,
+      required this.age,
+      required this.address,
+      required this.onPressedEdit,
+      required this.onPressedDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class EmpCard extends StatelessWidget {
                     color: Colors.white,
                   )),
               IconButton(
-                onPressed: () {},
+                onPressed: onPressedDelete,
                 icon: const Icon(
                   Icons.delete,
                   color: Colors.white,

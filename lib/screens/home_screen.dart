@@ -3,9 +3,7 @@ import 'package:firebase_crud/screens/add_emp_screen.dart';
 import 'package:firebase_crud/services/database.dart';
 import 'package:firebase_crud/widgets.dart/edit_details.dart';
 import 'package:firebase_crud/widgets.dart/emp_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,10 +18,10 @@ class _HomeScreenState extends State<HomeScreen> {
   final ageController = TextEditingController();
 
   final addressController = TextEditingController();
-  Stream? EmployeeStream;
+  Stream? employeeStream;
 
   getontheload() async {
-    EmployeeStream = await DatabaseMethods().getEmployeeDetails();
+    employeeStream = await DatabaseMethods().getEmployeeDetails();
     setState(() {});
   }
 
@@ -35,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget allEmployeeDetails() {
     return StreamBuilder(
-        stream: EmployeeStream,
+        stream: employeeStream,
         builder: (context, AsyncSnapshot snapshot) {
           return snapshot.hasData
               ? ListView.builder(
@@ -43,16 +41,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   itemBuilder: (context, index) {
                     DocumentSnapshot ds = snapshot.data.docs[index];
                     return EmpCard(
-                        name: ds["Name"],
-                        age: ds["Age"],
-                        address: ds["Address"],
-                        onPressedEdit: () {
-                          nameController.text = ds["Name"];
-                          ageController.text = ds["Age"];
-                          addressController.text = ds["Address"];
-
-                          EditEmployeeDetails(ds["Id"]);
-                        });
+                      name: ds["Name"],
+                      age: ds["Age"],
+                      address: ds["Address"],
+                      onPressedEdit: () {
+                        nameController.text = ds["Name"];
+                        ageController.text = ds["Age"];
+                        addressController.text = ds["Address"];
+                        EditEmployeeDetails(ds["Id"]);
+                      },
+                      onPressedDelete: () {
+                        DatabaseMethods().deleteEmployeeDetail(ds["Id"]);
+                      },
+                    );
                   })
               : Container();
         });
@@ -90,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               content: EditDetails(
             nameController: nameController,
             ageController: ageController,
-            addressController: addressController, Id: id,
+            addressController: addressController,
+            id: id,
           )));
 }

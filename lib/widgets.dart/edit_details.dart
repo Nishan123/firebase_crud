@@ -6,14 +6,14 @@ class EditDetails extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController ageController;
   final TextEditingController addressController;
-  final String Id;
+  final String id;
 
   const EditDetails({
     super.key,
     required this.nameController,
     required this.ageController,
     required this.addressController,
-    required this.Id,
+    required this.id,
   });
 
   @override
@@ -22,6 +22,7 @@ class EditDetails extends StatelessWidget {
       height: MediaQuery.of(context).size.height * 0.4,
       width: MediaQuery.of(context).size.width * 0.8,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             children: [
@@ -33,7 +34,7 @@ class EditDetails extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              const Text("Edit Employee Details")
+               Text(id)
             ],
           ),
           CustomTextField(
@@ -50,25 +51,27 @@ class EditDetails extends StatelessWidget {
               hintText: "Address",
               controller: addressController),
           const SizedBox(height: 20),
+
+          // Save changes button
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 10),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () async {
                 Map<String, dynamic> updateInfo = {
-                  "Id": Id,
+                  "Id": id,
                   "Name": nameController.text,
                   "Age": ageController.text,
                   "Address": addressController.text
                 };
                 await DatabaseMethods()
-                    .updateEmployeeDetail(Id, updateInfo)
+                    .updateEmployeeDetail(id, updateInfo)
                     .then((value) => Navigator.pop(context));
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.red),
-                elevation: MaterialStateProperty.all(0),
-                shape: MaterialStateProperty.all(const RoundedRectangleBorder(
+                backgroundColor: WidgetStateProperty.all(Colors.red),
+                elevation: WidgetStateProperty.all(0),
+                shape: WidgetStateProperty.all(const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero)), // Add this line
               ),
               child: const Text(

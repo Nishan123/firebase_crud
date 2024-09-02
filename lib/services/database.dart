@@ -20,4 +20,8 @@ class DatabaseMethods {
         .doc(id)
         .update(updateInfo);
   }
+
+  Future deleteEmployeeDetail(String id) {
+    return FirebaseFirestore.instance.collection("Employee").doc(id).delete();
+  }
 }
